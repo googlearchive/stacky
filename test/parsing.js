@@ -88,12 +88,12 @@ describe('parsing', function() {
       });
     });
 
-    it('parses lines w/ windows paths', function() {
-      expect(parseGeckoLine('trace@file:///C:/example.html:9:17')).to.deep.equal({
-        method:   'trace',
-        location: 'file:///C:/example.html',
-        line:     9,
-        column:   17,
+    it('parses lines w/ URI locations', function() {
+      expect(parseGeckoLine('assert@http://localhost:123/chai/chai.js:925:67')).to.deep.equal({
+        method:   'assert',
+        location: 'http://localhost:123/chai/chai.js',
+        line:     925,
+        column:   67,
       });
     });
 
