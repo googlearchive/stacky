@@ -9,7 +9,7 @@
 
 ![Example Pretty Stack](example.png?raw=true)
 
-`pretty` Provides [several options](lib/formatting.js#L8-29) allowing you to
+`pretty` Provides [several options](lib/formatting.js#L15-L36) allowing you to
 tweak the output format to your liking.
 
 
