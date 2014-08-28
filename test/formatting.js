@@ -61,6 +61,16 @@ describe('formatting', function() {
       );
     });
 
+    it('replaces missing methods', function() {
+      expect(pretty(
+        '@bar.js:1:2\n' +
+        'thing@bar.js:3:4\n',
+      {maxMethodPadding: 10})).to.deep.eq(
+        '<unknown> at bar.js:1:2\n' +
+        '    thing at bar.js:3:4'
+      );
+    });
+
   });
 
   describe('.clean', function() {
