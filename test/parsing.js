@@ -178,4 +178,45 @@ describe('parsing', function() {
     });
   });
 
+
+  describe('.parseStackyLine', function() {
+    var parseStackyLine = parsing.parseStackyLine;
+
+    it('parses minimal lines', function() {
+      expect(parseStackyLine('  Type.name at file:1:2')).to.deep.equal({
+        method:   'Type.name',
+        location: 'file',
+        line:     1,
+        column:   2,
+      });
+    });
+
+    it('parses without indent', function() {
+      expect(parseStackyLine('Type.name at file:1:2')).to.deep.equal({
+        method:   'Type.name',
+        location: 'file',
+        line:     1,
+        column:   2,
+      });
+    });
+
+    it('parses aligned lines', function() {
+      expect(parseStackyLine('         Type.name at file:1:2')).to.deep.equal({
+        method:   'Type.name',
+        location: 'file',
+        line:     1,
+        column:   2,
+      });
+    });
+
+    it('parses constructor calls', function() {
+      expect(parseStackyLine('  new Foo at file:1:2')).to.deep.equal({
+        method:   'new Foo',
+        location: 'file',
+        line:     1,
+        column:   2,
+      });
+    });
+  });
+
 });
