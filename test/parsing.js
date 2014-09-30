@@ -153,6 +153,15 @@ describe('parsing', function() {
       });
     });
 
+    it('parses location-only lines', function() {
+      expect(parseV8Line('  at file:1:2')).to.deep.equal({
+        method:   '',
+        location: 'file',
+        line:     1,
+        column:   2,
+      });
+    });
+
     it('handles evals somewhat gracefully', function() {
       expect(parseV8Line('eval at Foo.a (eval at Bar.z (myscript.js:10:3))')).to.deep.equal({
         method:   'eval at Foo.a (eval at Bar.z',
@@ -163,7 +172,7 @@ describe('parsing', function() {
     });
 
     it('returns null for gibberish', function() {
-      expect(parseV8Line('jkahsdflkjhasdflkhjasf')).to.be.null;
+      expect(parseV8Line(' jkahsdflkjh ;as at (dflk:hja:sf)')).to.be.null;
       expect(parseV8Line('')).to.be.null;
       expect(parseV8Line('    ')).to.be.null;
     });

@@ -79,6 +79,7 @@ describe('formatting', function() {
     var options = {
       locationStrip: [/^bar\//, 'two/'],
       unimportantLocation: [/^thing/],
+      filter: function() { return false; },
     };
 
     function cleaned(stack, key) {
