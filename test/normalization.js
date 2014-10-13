@@ -74,6 +74,14 @@ describe('normalization', function() {
         }],
       });
     });
+
+    it('handles string-only errors', function() {
+      expect(normalize('Uncaught Error: stuff')).to.deep.equal({
+        message: 'Uncaught Error: stuff',
+        stack: 'Uncaught Error: stuff',
+        parsedStack: [],
+      });
+    });
   });
 
 });
