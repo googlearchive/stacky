@@ -12,6 +12,13 @@ var expect = require('chai').expect;
 
 var normalization = require('../lib/normalization');
 
+var FULL_ERROR = {
+  message: 'ReferenceError: FAIL is not defined',
+  stack: 'ReferenceError: FAIL is not defined\n' +
+         '   at Constraint.execute (deltablue.js:525:2)\n' +
+         '   at Constraint.recalculate (deltablue.js:424:21)',
+};
+
 describe('normalization', function() {
 
   describe('.normalize', function() {
@@ -21,15 +28,31 @@ describe('normalization', function() {
       chalk.enabled = false;
     });
 
-    it('supports modern errors', function() {
-      var error = {
+    it('hides columns by default', function() {
+      expect(normalize(FULL_ERROR)).to.deep.equal({
         message: 'ReferenceError: FAIL is not defined',
         stack: 'ReferenceError: FAIL is not defined\n' +
-               '   at Constraint.execute (deltablue.js:525:2)\n' +
-               '   at Constraint.recalculate (deltablue.js:424:21)',
-      };
+               '    Constraint.execute at deltablue.js:525\n' +
+               'Constraint.recalculate at deltablue.js:424',
+        parsedStack: [
+          {
+            location:  'deltablue.js',
+            method:    'Constraint.execute',
+            line:      525,
+            important: true,
+          },
+          {
+            location:  'deltablue.js',
+            method:    'Constraint.recalculate',
+            line:      424,
+            important: true,
+          },
+        ],
+      });
+    });
 
-      expect(normalize(error)).to.deep.equal({
+    it('supports modern errors', function() {
+      expect(normalize(FULL_ERROR, {showColumns: true})).to.deep.equal({
         message: 'ReferenceError: FAIL is not defined',
         stack: 'ReferenceError: FAIL is not defined\n' +
                '    Constraint.execute at deltablue.js:525:2\n' +
@@ -61,7 +84,7 @@ describe('normalization', function() {
         columnNumber: 27,
       };
 
-      expect(normalize(error)).to.deep.equal({
+      expect(normalize(error, {showColumns: true})).to.deep.equal({
         message: 'Something brokeded',
         stack: 'Something brokeded\n' +
                '<unknown> at some/file.js:123:27',
@@ -82,6 +105,7 @@ describe('normalization', function() {
         parsedStack: [],
       });
     });
+
   });
 
 });
