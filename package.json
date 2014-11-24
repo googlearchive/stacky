@@ -1,6 +1,6 @@
 {
   "name": "stacky",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Stacky parses stack traces from various sources, and formats them in readable ways.",
   "main": "lib",
   "directories": {
