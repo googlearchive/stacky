@@ -3,6 +3,9 @@
   "version": "1.2.0",
   "description": "Stacky parses stack traces from various sources, and formats them in readable ways.",
   "main": "lib",
+  "files": [
+    "lib/"
+  ],
   "directories": {
     "test": "test"
   },
