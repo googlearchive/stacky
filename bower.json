@@ -6,9 +6,11 @@
     "The Polymer Authors"
   ],
   "ignore": [
-    "*",
-    "!/browser.js",
-    "!/LICENSE"
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
   ],
   "license": "BSD-3-Clause",
   "keywords": [
@@ -23,11 +25,5 @@
     "amd",
     "globals"
   ],
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+  "version": "1.3.0"
 }
